@@ -3,8 +3,11 @@ import TextField from "../UI/Forms/TextField";
 import Button from "../UI/Button/Button";
 import style from "../UI/Forms/Forms.module.css";
 
+
 const LoginForm = ({ value, index}) => {
 
+     
+      
       const [ formValue, setFormValue ] = useState(value ? value : {
             email: '',
             password: '',
@@ -12,6 +15,8 @@ const LoginForm = ({ value, index}) => {
 
       const handleSubmit = (event) => {
             event.preventDefault();
+            
+            console.log("Form Values:", formValue); 
       };
 
       return (
@@ -21,18 +26,18 @@ const LoginForm = ({ value, index}) => {
 
                   <TextField 
                         name='Email'
-                        placeholder='Enter your email'
                         label='Email'
                         value = { formValue.email }
                         onChange= { (value) => setFormValue({ ...formValue, email : value })}
+                        type='email'
                   />
 
                   <TextField 
                         name='Password'
-                        placeholder='Enter your password'
                         label='Password'
                         value = { formValue.password }
                         onChange= { (value) => setFormValue({ ...formValue, password : value })}
+                        type='password'
                   />
 
                   <Button variant="yellow" type='submit'>Log in</Button>
