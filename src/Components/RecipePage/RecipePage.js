@@ -1,4 +1,4 @@
-import Recipes from '../Recipes/Recipes'
+import Recipes from '../UI/Recipes/Recipes'
 import style from './RecipePage.module.css'
 
 const recipes = [
