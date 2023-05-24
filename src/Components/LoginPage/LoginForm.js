@@ -1,47 +1,79 @@
-import { useState } from "react";
-import TextField from "../UI/Forms/TextField";
+import { Field, Form, Formik } from "formik";
+import { useId } from "react";
 import Button from "../UI/Button/Button";
 import style from "../UI/Forms/Forms.module.css";
+import * as Yup from 'yup';
+import axios from 'axios';
 
 
-const LoginForm = ({ value, index}) => {
 
-     
-      
-      const [ formValue, setFormValue ] = useState(value ? value : {
-            email: '',
-            password: '',
+const LoginForm = () => {
+
+      const id = useId();
+
+      const LoginFormSchema = Yup.object().shape({
+            email: Yup.string()
+            .required('This field is required'),
+            password: Yup.string()
+            .required('This field is required'),
       });
 
-      const handleSubmit = (event) => {
-            event.preventDefault();
-            
-            console.log("Form Values:", formValue); 
+      const handleSubmit = async (values) => {
+            try {
+              const response = await axios.post("http://localhost:3001/login", values);
+              console.log(response.data); // Response from the server
+            } catch (error) {
+              console.log("Request failed with error:", error);
+            }
       };
 
       return (
+            <Formik
+                  initialValues={{
+                        email: '',
+                        password: '',
+                  }}
 
-            <form onSubmit= { handleSubmit } className={ style.form }>
-                  <h2>Log in</h2>
+                  onSubmit={ handleSubmit }
+                  validationSchema={ LoginFormSchema }
+            >
 
-                  <TextField 
-                        name='Email'
-                        label='Email'
-                        value = { formValue.email }
-                        onChange= { (value) => setFormValue({ ...formValue, email : value })}
-                        type='email'
-                  />
+                  {
+                        ({ errors, touched }) => (
+                              <Form>
+                                    <h2>Login</h2>
+                                    
+                                          <label className={style.label}>Email</label>
+                                          <Field 
+                                                name='email'
+                                                type='email'
+                                                id={`${id}-email`}
+                                                className={style.input}
+                                          />
+                                          { errors.email && touched.email && <p style={{ color: 'red'}}>{ errors.email}</p>}
+                                    
+                                    
+                                          <label className={style.label}>Password</label>
+                                          <Field 
+                                                name='password'
+                                                type='password'
+                                                id={`${id}-password`}
+                                                className={style.input}
+                                          />
+                                          { errors.password && touched.password && <p style={{ color: 'red'}}>{ errors.password}</p>}
+                                    
+                                    
+                                    <Button variant="yellow" type='submit'>Log In</Button>
 
-                  <TextField 
-                        name='Password'
-                        label='Password'
-                        value = { formValue.password }
-                        onChange= { (value) => setFormValue({ ...formValue, password : value })}
-                        type='password'
-                  />
+                              </Form>
+                        )
+                  }
 
-                  <Button variant="yellow" type='submit'>Log in</Button>
-            </form>
+
+
+
+            </Formik>
+
 
       );
 }

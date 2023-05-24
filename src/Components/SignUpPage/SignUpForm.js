@@ -1,8 +1,9 @@
 import { Field, Form, Formik } from "formik";
 import { useId } from "react";
 import Button from "../UI/Button/Button";
-import style from "../UI/Forms/TextField.module.css";
+import style from "../UI/Forms/Forms.module.css";
 import * as Yup from 'yup';
+import axios from "axios";
 
 
 
@@ -13,14 +14,15 @@ const SignUpForm = () => {
       const SignUpFormSchema = Yup.object().shape({
             firstname: Yup.string()
             .min(2)
-            .matches(/^[a-zA-Z]+(?:-[a-zA-Z]+)?$/, 'Invalid format. Only letters and at most one hyphen (-) allowed')
+            .matches(/^[a-zA-Z]+(?:[-\s][a-zA-Z]+)?$/, 'Invalid format. Only letters, spaces, or at most one hyphen (-) allowed between words')
             .required('This field is required'),
             lastname: Yup.string()
             .min(2)
-            .matches(/^[a-zA-Z]+(?:-[a-zA-Z]+)?$/, 'Invalid format. Only letters and at most one hyphen (-) allowed')
+            .matches(/^[a-zA-Z]+(?:[-\s][a-zA-Z]+)?$/, 'Invalid format. Only letters, spaces, or at most one hyphen (-) allowed between words')
             .required('This field is required'),
             email: Yup.string()
             .email('Invalid email format')
+            .matches(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/, 'Invalid email format')
             .required('This field is required'),
             password: Yup.string()
             .min(10)
@@ -34,10 +36,14 @@ const SignUpForm = () => {
             .required('This field is required'),
       });
 
-      const handleSubmit =  (value) => {
-            console.log(value)
-            
-      };
+      const handleSubmit = async (values) => {
+            try {
+              const response = await axios.post("http://localhost:3001/users", values);
+              console.log(response.data); // Response from the server
+            } catch (error) {
+              console.log("Request failed with error:", error);
+            }
+          };
 
       return (
             <Formik
@@ -55,7 +61,7 @@ const SignUpForm = () => {
 
                   {
                         ({ errors, touched }) => (
-                              <Form>
+                              <Form className={style.form}>
                                     <h2>Sign up</h2>
                                     
                                           <label className={style.label}>Firstname</label>
