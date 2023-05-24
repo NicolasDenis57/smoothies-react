@@ -20,7 +20,7 @@ const LoginForm = () => {
 
       const handleSubmit = async (values) => {
             try {
-              const response = await axios.post("http://localhost:3001/login", values);
+              const response = await axios.post(`${process.env.REACT_APP_API_URL}/login`, values);
               console.log(response.data); // Response from the server
             } catch (error) {
               console.log("Request failed with error:", error);

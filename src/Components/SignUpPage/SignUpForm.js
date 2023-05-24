@@ -38,7 +38,7 @@ const SignUpForm = () => {
 
       const handleSubmit = async (values) => {
             try {
-              const response = await axios.post("http://localhost:3001/users", values);
+              const response = await axios.post(`${process.env.REACT_APP_API_URL}/users`, values);
               console.log(response.data); // Response from the server
             } catch (error) {
               console.log("Request failed with error:", error);
