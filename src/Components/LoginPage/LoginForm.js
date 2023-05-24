@@ -1,13 +1,16 @@
 import { Field, Form, Formik } from "formik";
-import { useId } from "react";
+import { useId, useContext } from "react";
 import Button from "../UI/Button/Button";
 import style from "../UI/Forms/Forms.module.css";
 import * as Yup from 'yup';
-import axios from 'axios';
+import axios from '../../Api/axios';
+import AuthContext from '../../context/AuthProvider'
 
-
+const LOGIN_URL = '/login';
 
 const LoginForm = () => {
+
+      const { setAuth } = useContext(AuthContext);
 
       const id = useId();
 
@@ -20,8 +23,11 @@ const LoginForm = () => {
 
       const handleSubmit = async (values) => {
             try {
-              const response = await axios.post(`${process.env.REACT_APP_API_URL}/login`, values);
+              const response = await axios.post(LOGIN_URL, values);
               console.log(response.data); // Response from the server
+              const accessToken = response?.data?.accessToken;
+              const role = response?.data?.role;
+              setAuth({ role, accessToken})
             } catch (error) {
               console.log("Request failed with error:", error);
             }

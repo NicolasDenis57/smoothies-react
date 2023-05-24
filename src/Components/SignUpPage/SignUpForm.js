@@ -3,7 +3,9 @@ import { useId } from "react";
 import Button from "../UI/Button/Button";
 import style from "../UI/Forms/Forms.module.css";
 import * as Yup from 'yup';
-import axios from "axios";
+import axios from '../../Api/axios';
+
+const SIGNUP_URL = '/users';
 
 
 
@@ -38,7 +40,7 @@ const SignUpForm = () => {
 
       const handleSubmit = async (values) => {
             try {
-              const response = await axios.post(`${process.env.REACT_APP_API_URL}/users`, values);
+              const response = await axios.post(SIGNUP_URL, values);
               console.log(response.data); // Response from the server
             } catch (error) {
               console.log("Request failed with error:", error);
