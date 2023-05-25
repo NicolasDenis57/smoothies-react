@@ -18,6 +18,9 @@ const Header = () => {
                                                 <Link to={'/login'}>Log in</Link>
                                           </li>
                                           <li>
+                                                <Link to={'/admin'}>Admin</Link>
+                                          </li>
+                                          <li>
                                                 <Link variant="yellow" to={'/signup'}>Sign up</Link>
                                           </li>
                                     </ul>

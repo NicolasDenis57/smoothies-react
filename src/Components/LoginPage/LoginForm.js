@@ -1,16 +1,22 @@
 import { Field, Form, Formik } from "formik";
-import { useId, useContext } from "react";
+import { useId } from "react";
 import Button from "../UI/Button/Button";
 import style from "../UI/Forms/Forms.module.css";
 import * as Yup from 'yup';
 import axios from '../../Api/axios';
-import AuthContext from '../../context/AuthProvider'
+import useAuth from '../../hooks/useAuth'
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+
 
 const LOGIN_URL = '/login';
 
 const LoginForm = () => {
 
-      const { setAuth } = useContext(AuthContext);
+      const { setAuth } = useAuth();
+
+      const navigate = useNavigate();
+      const location = useLocation();
+      const from = location.state?.from?.pathname || "/";
 
       const id = useId();
 
@@ -23,21 +29,27 @@ const LoginForm = () => {
 
       const handleSubmit = async (values) => {
             try {
-              const response = await axios.post(LOGIN_URL, values);
+                  const response = await axios.post(LOGIN_URL, values, 
+                                   { 
+                                         headers: { 'Content-Type' : 'application/json'},
+                                         withCredentials : true
+                                   }
+                  );
               console.log(response.data); // Response from the server
               const accessToken = response?.data?.accessToken;
               const role = response?.data?.role;
-              setAuth({ role, accessToken})
+              setAuth({ role, accessToken});
+              navigate(from, { replace:true });
+              console.log(from)
             } catch (error) {
               console.log("Request failed with error:", error);
             }
       };
-
       return (
             <Formik
                   initialValues={{
-                        email: '',
-                        password: '',
+                        email: 'nicolas.denis.57@gmail.com',
+                        password: 'Marius2022!',
                   }}
 
                   onSubmit={ handleSubmit }
@@ -70,13 +82,11 @@ const LoginForm = () => {
                                     
                                     
                                     <Button variant="yellow" type='submit'>Log In</Button>
+                                    
 
                               </Form>
                         )
                   }
-
-
-
 
             </Formik>
 
