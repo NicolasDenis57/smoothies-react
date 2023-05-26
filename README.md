@@ -7,3 +7,5 @@ Todo FRONT :
 - gérer l'affichage conditonnel du bouton logout si pas de token, idem pour le message de bienvenue
 
 - ajouter un lien pour s'inscrire sur le form du login
+
+- reprendre la vidéo au niveau du refresh token

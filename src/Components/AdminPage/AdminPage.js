@@ -1,7 +1,18 @@
+import { Link } from "react-router-dom";
+import Users from  '../Users';
+
 const AdminPage = () => {
 
         return (
-            <p>Seul l'admin a le droit de voir ceci</p>
+            <section>
+                <h1>Admins Page</h1>
+                <br/>
+                <Users />
+                <br />
+                <div>
+                    <Link to="/">Home</Link>
+                </div>
+            </section>
         );
 };
 

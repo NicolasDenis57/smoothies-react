@@ -48,8 +48,8 @@ const LoginForm = () => {
       return (
             <Formik
                   initialValues={{
-                        email: 'nicolas.denis.57@gmail.com',
-                        password: 'Marius2022!',
+                        email: 'admin@admin.fr',
+                        password: '!P@ssw0rd!',
                   }}
 
                   onSubmit={ handleSubmit }
@@ -83,7 +83,6 @@ const LoginForm = () => {
                                     
                                     <Button variant="yellow" type='submit'>Log In</Button>
                                     
-
                               </Form>
                         )
                   }

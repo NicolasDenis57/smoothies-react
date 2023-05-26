@@ -7,8 +7,6 @@ import axios from '../../Api/axios';
 
 const SIGNUP_URL = '/users';
 
-
-
 const SignUpForm = () => {
 
       const id = useId();
@@ -122,9 +120,6 @@ const SignUpForm = () => {
                               </Form>
                         )
                   }
-
-
-
 
             </Formik>
 
