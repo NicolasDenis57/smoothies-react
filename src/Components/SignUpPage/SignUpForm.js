@@ -39,7 +39,6 @@ const SignUpForm = () => {
       const handleSubmit = async (values) => {
             try {
               const response = await axios.post(SIGNUP_URL, values);
-              console.log(response.data); // Response from the server
             } catch (error) {
               console.log("Request failed with error:", error);
             }

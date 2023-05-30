@@ -5,7 +5,7 @@ import style from "../UI/Forms/Forms.module.css";
 import * as Yup from 'yup';
 import axios from '../../Api/axios';
 import useAuth from '../../hooks/useAuth'
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 
 const LOGIN_URL = '/login';
@@ -35,12 +35,10 @@ const LoginForm = () => {
                                          withCredentials : true
                                    }
                   );
-              console.log(response.data); // Response from the server
               const accessToken = response?.data?.accessToken;
               const role = response?.data?.role;
               setAuth({ role, accessToken});
               navigate(from, { replace:true });
-              console.log(from)
             } catch (error) {
               console.log("Request failed with error:", error);
             }

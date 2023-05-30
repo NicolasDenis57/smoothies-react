@@ -29,3 +29,14 @@ nav li a{
       padding: 10px 16px;
       letter-spacing: 2px;
 }
+
+nav li button {
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 0.8em;
+      padding: 10px 16px;
+      letter-spacing: 2px;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+    }
