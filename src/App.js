@@ -18,31 +18,33 @@ function App() {
   return (
   <>
     <Header />
-    <Routes>
-      <Route path="/" element={< Layout />}>
+        <Routes>
+        
+          <Route path="/" element={< Layout />}>
 
-        {/* public routes */}
-        <Route path="/" element={< FrontPage />} />
-        <Route path="login" element={< LoginPage />} />
-        <Route path="signup" element={< SignUpPage />} />
-        <Route path="unauthorized" element={< UnauthorizedPage />} />
-       
+            {/* public routes */}
+            <Route path="/" element={< FrontPage />} />
+            <Route path="login" element={< LoginPage />} />
+            <Route path="signup" element={< SignUpPage />} />
+            <Route path="unauthorized" element={< UnauthorizedPage />} />
 
-        {/* protected routes only fo members */}
-        <Route element={<RequireAuth allowedRoles={['member', 'admin']} />}>
-          <Route path="smoothies" element={< RecipePage />} />
-        </Route>
-        {/*protected routes only for admin */}
-        <Route element={<RequireAuth allowedRoles={'admin'} />}>
-          <Route path="admin" element={< AdminPage />} />
-          
-        </Route>
+            {/* protected routes only fo members */}
+            <Route element={<RequireAuth allowedRoles={['member', 'admin']} />}>
+              <Route path="smoothies" element={< RecipePage />} />
+            </Route>
 
-        {/* catch all */}
-        <Route path="*" element={< MissingPage />} />
-      </Route>
-    </Routes>
+            {/*protected routes only for admin */}
+            <Route element={<RequireAuth allowedRoles={'admin'} />}>
+              <Route path="admin" element={< AdminPage />} />
+            </Route>
+
+            {/* catch all */}
+            <Route path="*" element={< MissingPage />} />
+            
+          </Route>
+        </Routes>
     <Footer />
+   
   </>
   );
 }
