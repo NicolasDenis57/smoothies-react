@@ -1,0 +1,9 @@
+.recipes{
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      column-gap: 30px;
+      row-gap: 80px;
+      margin: 80PX AUTO;
+      max-width: 1200px;
+    }
+   
