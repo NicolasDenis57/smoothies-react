@@ -9,6 +9,7 @@ import MissingPage from "./Components/MissingPage/MissingPage"
 import UnauthorizedPage from "./Components/UnauthorizedPage/UnauthorizedPage"
 import AdminPage from "./Components/AdminPage/AdminPage"
 import RequireAuth from './Components/RequireAuth';
+import PersistLogin from "./Components/PersistLogin";
 
 import { Routes, Route } from "react-router-dom";
 
@@ -29,15 +30,18 @@ function App() {
             <Route path="unauthorized" element={< UnauthorizedPage />} />
 
             {/* protected routes only fo members */}
-            <Route element={<RequireAuth allowedRoles={['member', 'admin']} />}>
-              <Route path="smoothies" element={< RecipePage />} />
-            </Route>
+            <Route element={<PersistLogin />}>
 
-            {/*protected routes only for admin */}
-            <Route element={<RequireAuth allowedRoles={'admin'} />}>
-              <Route path="admin" element={< AdminPage />} />
-            </Route>
+              <Route element={<RequireAuth allowedRoles={['admin', 'member']} />}>
+                <Route path="smoothies" element={< RecipePage />} />
+              </Route>
 
+              {/*protected routes only for admin */}
+              <Route element={<RequireAuth allowedRoles={'admin'} />}>
+                <Route path="admin" element={< AdminPage />} />
+              </Route>
+
+            </Route>
             {/* catch all */}
             <Route path="*" element={< MissingPage />} />
             

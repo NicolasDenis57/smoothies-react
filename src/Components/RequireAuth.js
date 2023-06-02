@@ -5,16 +5,18 @@ const RequireAuth = ({ allowedRoles }) => {
       const { auth } = useAuth();
       const location = useLocation();
 
-      console.log('RequireAuth', auth)
+      console.log(auth)
+
+      console.log('user', auth.user)
+      console.log('role', auth.role)
 
       return (
-            allowedRoles.includes(auth?.role)
+            allowedRoles?.includes(auth?.role)
                   ? <Outlet />
-                  : auth?.accessToken
+                  : auth?.user
                   ? <Navigate to="/unauthorized" state={{ from : location }} replace />
                   : <Navigate to="/login" state={{ from : location }} replace />
       );
 }
-
 
 export default RequireAuth;

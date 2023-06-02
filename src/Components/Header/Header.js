@@ -9,12 +9,13 @@ import AuthContext from "../../context/AuthProvider";
 import jwtDecode from 'jwt-decode';
 
 
-const getEmailFromToken = (token) => {
+const getFirstnameFromToken = (token) => {
   
       try {
         const decodedToken = jwtDecode(token);
-        if (decodedToken && decodedToken.email) {
-          return decodedToken.email;
+      
+        if (decodedToken && decodedToken.UserInfo.firstname) {
+          return decodedToken.UserInfo.firstname;
         }
       } catch (error) {
         console.log('Error decoding token:', error);
@@ -44,13 +45,12 @@ const Header = () => {
                   
             }
 
-            let emailFromToken = '';
+            let firstnameFromToken = '';
             if (auth.accessToken) {
-                emailFromToken = getEmailFromToken(auth.accessToken);
-            }
-
-
+                
+                firstnameFromToken = getFirstnameFromToken(auth.accessToken);
     
+            }
 
         return (
             <nav>
@@ -58,7 +58,7 @@ const Header = () => {
               <ul>
               {auth.accessToken && (
                 <li>
-                  Welcome, {emailFromToken}
+                  Welcome, {firstnameFromToken}
                 </li>
               )}
               

@@ -28,6 +28,7 @@ const LoginForm = () => {
       });
 
       const handleSubmit = async (values) => {
+            
             try {
                   const response = await axios.post(LOGIN_URL, values, 
                                    { 
@@ -35,9 +36,14 @@ const LoginForm = () => {
                                          withCredentials : true
                                    }
                   );
+                  console.log('response.data : ', response.data)
+
               const accessToken = response?.data?.accessToken;
+
               const role = response?.data?.role;
-              setAuth({ role, accessToken});
+
+              setAuth({ user: values.email, role, accessToken});
+              
               navigate(from, { replace:true });
             } catch (error) {
               console.log("Request failed with error:", error);
