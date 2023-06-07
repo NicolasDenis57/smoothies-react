@@ -13,6 +13,13 @@ import PersistLogin from "./Components/PersistLogin";
 
 import { Routes, Route } from "react-router-dom";
 
+const ROLES = {
+  'User': 2001,
+  'Editor': 1984,
+  'Admin': 5150
+}
+
+
 
 
 function App() {
@@ -29,21 +36,26 @@ function App() {
             <Route path="signup" element={< SignUpPage />} />
             <Route path="unauthorized" element={< UnauthorizedPage />} />
 
-            {/* protected routes only fo members */}
+            
             <Route element={<PersistLogin />}>
 
-              <Route element={<RequireAuth allowedRoles={['admin', 'member']} />}>
-                <Route path="smoothies" element={< RecipePage />} />
-              </Route>
+                    {/* protected routes only fo members */}
 
-              {/*protected routes only for admin */}
-              <Route element={<RequireAuth allowedRoles={'admin'} />}>
-                <Route path="admin" element={< AdminPage />} />
-              </Route>
+                        <Route element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />}>
+                          <Route path="smoothies" element={< RecipePage />} />
+                        </Route>
+
+                    {/*protected routes only for admin */}
+                        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+                          <Route path="admin" element={< AdminPage />} />
+                        </Route>
+
+                    {/* catch all */}
+                        <Route path="*" element={< MissingPage />} />
 
             </Route>
-            {/* catch all */}
-            <Route path="*" element={< MissingPage />} />
+
+           
             
           </Route>
         </Routes>

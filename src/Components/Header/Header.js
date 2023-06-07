@@ -64,7 +64,7 @@ const Header = () => {
               
               {auth.accessToken && (
   <>
-    {auth.role === 'admin' && (
+    {auth.role === 5150 && (
       <li>
         <Link to={'/admin'}>Admin</Link>
       </li>
